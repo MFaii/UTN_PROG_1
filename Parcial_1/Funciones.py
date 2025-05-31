@@ -113,40 +113,6 @@ def mostrar_puntuaciones(array_nombres: list, matriz_votos: list) -> bool:
     return retorno
 
 
-def calcular_porcentaje(
-    cantidad_total: int | float, cantidad_parcial: int | float
-) -> float:
-    porcentaje = cantidad_parcial * 100 / cantidad_total
-    return porcentaje
-
-
-def sumar_matriz(matriz_numerica: list) -> int | float:
-    suma = 0
-
-    for fil in range(len(matriz_numerica)):
-        for col in range(len(matriz_numerica[fil])):
-            if (
-                type(matriz_numerica[fil][col]) == int
-                or type(matriz_numerica[fil][col]) == float
-            ):
-                suma += matriz_numerica[fil][col]
-
-    return suma
-
-
-def sumar_fila(matriz_numerica: list, indice_fila: int) -> int | float:
-    suma_fila = 0
-
-    for col in range(len(matriz_numerica[0])):
-        if (
-            type(matriz_numerica[indice_fila][col]) == int
-            or type(matriz_numerica[indice_fila][col]) == float
-        ):
-            suma_fila += matriz_numerica[indice_fila][col]
-
-    return suma_fila
-
-
 def promedio_mayor_a_cuatro(array_nombres: list, matriz_puntos: list) -> bool:
     mayor_a_cuatro = False
 
@@ -179,3 +145,19 @@ def promedio_mayor_a_siete(array_nombres: list, matriz_puntos: list) -> bool:
         return False
 
     return True
+
+
+def mostrar_promedio_jurados(matriz_puntos: list) -> bool:
+    if type(matriz_puntos) == list and len(matriz_puntos) > 0:
+        cantidad_participantes = len(matriz_puntos)
+        cantidad_jurados = len(matriz_puntos[0])
+
+        for jurado in range(cantidad_jurados):
+            suma = 0
+            for participante in range(cantidad_participantes):
+                suma += matriz_puntos[participante][jurado]
+            promedio = suma / cantidad_participantes
+            print(f"PROMEDIO JURADO {jurado + 1}: {round(promedio, 2)}")
+        return True
+    else:
+        return False

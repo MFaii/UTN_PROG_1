@@ -11,7 +11,7 @@ bandera_carga_puntos = False
 
 while True:
     print(
-        "1.Cargar nombres\n2.Cargar puntos\n3.Mostrar puntos\n4.Participantes con promedio mayor a 4\n5.Participantes con promedio mayor a 7\n11.Salir"
+        "1.Cargar nombres\n2.Cargar puntos\n3.Mostrar puntos\n4.Participantes con promedio mayor a 4\n5.Participantes con promedio mayor a 7\n6.Promedio de cada jurado\n11.Salir"
     )
     opcion = int(input("Su opcion: "))
 
@@ -51,6 +51,15 @@ while True:
             promedio_mayor_a_siete(array_nombres, matriz_puntos)
         else:
             print("Error al buscar participantes.")
+
+    elif opcion == 6:
+        if bandera_carga_puntos == True:
+            mostrar_promedio_jurados(matriz_puntos)
+        else:
+            print("Primero debe cargar las puntuaciones.")
+
+    elif opcion == 7:
+        pass
 
     elif opcion == 11:
         print("Saliendo")
