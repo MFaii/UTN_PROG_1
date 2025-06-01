@@ -212,7 +212,7 @@ def buscar_participante_por_nombre(
             promedio = (
                 matriz_puntos[i][0] + matriz_puntos[i][1] + matriz_puntos[i][2]
             ) / 3
-            print(f"PUNTAJE PROMEDIO: {round(promedio,2) / 10}")
+            print(f"PUNTAJE PROMEDIO: {round(promedio,2)}/ 10")
 
             encontrado = True
             break

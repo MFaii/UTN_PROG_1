@@ -16,7 +16,7 @@ while True:
     opcion = int(input("Su opcion: "))
 
     while opcion > 11 or opcion < 1:
-        opcion = int(input("Reingrese su opcion(1-10): "))
+        opcion = int(input("Reingrese su opcion(1-11): "))
 
     if opcion == 1:
         if cargar_nombre_participantes(array_nombres) == True:
@@ -26,7 +26,7 @@ while True:
         else:
             print("Error en la carga")
 
-    elif opcion == 2:
+    elif opcion == 2 and bandera_carga_nombres == True:
         if cargar_puntuaciones(matriz_puntos) == True:
             print("Carga de puntos exitosa!")
             mostrar_matriz(matriz_puntos)
