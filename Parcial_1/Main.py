@@ -11,7 +11,7 @@ bandera_carga_puntos = False
 
 while True:
     print(
-        "1.Cargar nombres\n2.Cargar puntos\n3.Mostrar puntos\n4.Participantes con promedio mayor a 4\n5.Participantes con promedio mayor a 7\n6.Promedio de cada jurado\n11.Salir"
+        "1.Cargar nombres\n2.Cargar puntos\n3.Mostrar puntos\n4.Participantes con promedio mayor a 4\n5.Participantes con promedio mayor a 7\n6.Promedio de cada jurado\n7.Jurado mas estricto\n8.Buscar participante por nombre\n11.Salir"
     )
     opcion = int(input("Su opcion: "))
 
@@ -59,7 +59,25 @@ while True:
             print("Primero debe cargar las puntuaciones.")
 
     elif opcion == 7:
-        pass
+        if bandera_carga_puntos == True:
+            jurado_mas_estricto(matriz_puntos)
+        else:
+            print("Error al mostrar al jurado mas estricto.")
+
+    elif opcion == 8:
+        if bandera_carga_nombres == True and bandera_carga_puntos == True:
+            nombre_a_buscar = input(f"Ingrese el nombre del participante a buscar: ")
+
+            if nombre_valido(nombre_a_buscar):
+                encontrado = buscar_participante_por_nombre(
+                    array_nombres, matriz_puntos, nombre_a_buscar
+                )
+                if not encontrado:
+                    print("El participante no fue encontrado")
+            else:
+                print("Nombre inválido. Debe contener solo letras y al menos 3 letras.")
+        else:
+            print("Primero debe cargar los datos.")
 
     elif opcion == 11:
         print("Saliendo")

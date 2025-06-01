@@ -161,3 +161,60 @@ def mostrar_promedio_jurados(matriz_puntos: list) -> bool:
         return True
     else:
         return False
+
+
+def jurado_mas_estricto(matriz_puntos: list) -> bool:
+    if type(matriz_puntos) == list and len(matriz_puntos) > 0:
+        suma_jurado_1 = 0
+        suma_jurado_2 = 0
+        suma_jurado_3 = 0
+        cantidad = len(matriz_puntos)
+
+        for i in range(cantidad):
+            suma_jurado_1 += matriz_puntos[i][0]
+            suma_jurado_2 += matriz_puntos[i][1]
+            suma_jurado_3 += matriz_puntos[i][2]
+
+        promedio_1 = suma_jurado_1 / cantidad
+        promedio_2 = suma_jurado_2 / cantidad
+        promedio_3 = suma_jurado_3 / cantidad
+
+        if promedio_1 <= promedio_2 and promedio_1 <= promedio_3:
+            print(
+                f"El jurado más estricto fue el JURADO 1 con un promedio de: {promedio_1}"
+            )
+        elif promedio_2 <= promedio_1 and promedio_2 <= promedio_3:
+            print(
+                f"El jurado más estricto fue el JURADO 2 con un promedio de: {promedio_2}"
+            )
+        else:
+            print(
+                f"El jurado más estricto fue el JURADO 3 con un promedio de: {promedio_3}"
+            )
+
+        return True
+    else:
+        return False
+
+
+def buscar_participante_por_nombre(
+    array_nombres: list, matriz_puntos: list, nombre: str
+) -> bool:
+    encontrado = False
+
+    for i in range(len(array_nombres)):
+        if array_nombres[i].lower() == nombre.lower():
+            print(f"NOMBRE PARTICIPANTE: {array_nombres[i]}")
+            print(f"PUNTAJE JURADO 1: {matriz_puntos[i][0]}")
+            print(f"PUNTAJE JURADO 2: {matriz_puntos[i][1]}")
+            print(f"PUNTAJE JURADO 3: {matriz_puntos[i][2]}")
+
+            promedio = (
+                matriz_puntos[i][0] + matriz_puntos[i][1] + matriz_puntos[i][2]
+            ) / 3
+            print(f"PUNTAJE PROMEDIO: {round(promedio,2) / 10}")
+
+            encontrado = True
+            break
+
+    return encontrado
