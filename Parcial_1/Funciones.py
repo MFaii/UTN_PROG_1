@@ -4,6 +4,17 @@ from Validaciones import *
 def crear_matriz(
     cantidad_filas: int, cantidad_columnas: int, valor_inicial: any
 ) -> list:
+    """
+    Crea una matriz de tamaño especificado y la llena con un valor inicial.
+
+    Args:
+        cantidad_filas (int): Filas para la matriz.
+        cantidad_columnas (int): Columnas para la matriz.
+        valor_inicial (any): Valor inicial de todos los elementos de la matriz.
+
+    Returns:
+        list: Devuelve la matriz creada con el valor inicial.
+    """
     matriz = []
     for i in range(cantidad_filas):
         fila = [valor_inicial] * cantidad_columnas
@@ -13,11 +24,31 @@ def crear_matriz(
 
 
 def crear_array(cantidad_elementos: int, valor_inicial: any) -> list:
+    """
+    Crea un array de tamaño especificado y lo llena con un valor inicial.
+
+    Args:
+        cantidad_elementos (int): Cantidad de elementos para el array.
+        valor_inicial (any): Valor inicial de todos los elementos del array.
+
+    Returns:
+        list: Devuelve el array creado con el valor inicial.
+    """
     array = [valor_inicial] * cantidad_elementos
     return array
 
 
-def cargar_nombre_participantes(array_nombres):
+def cargar_nombre_participantes(array_nombres: list) -> bool:
+    """
+    Solicita nombres por consola y los carga en el array recibido como argumento.
+
+    Args:
+        array_nombres (list): Lista predefinida con espacios vacíos donde se cargarán los nombres de los participantes.
+
+    Returns:
+        bool: Devuelve True si la carga fue exitosa, False si el array no es válido.
+    """
+
     if type(array_nombres) == list and len(array_nombres) > 0:
         retorno = True
         for i in range(len(array_nombres)):
@@ -38,11 +69,23 @@ def cargar_nombre_participantes(array_nombres):
 
 
 def mostrar_array(array: list):
+    """
+    Muestra los elementos del array por consola
+
+    Args:
+        array (list): Lista de elementos a mostrar
+    """
     for i in range(len(array)):
         print(f"{array[i]}")
 
 
 def mostrar_matriz(matriz: list) -> None:
+    """
+    Muestra por consola una matriz.
+
+    Args:
+        matriz (list): Matriz a mostrar.
+    """
     for fila in range(len(matriz)):
         for columna in range(len(matriz[fila])):
             print(f"{matriz[fila][columna]}", end=" ")
@@ -50,6 +93,15 @@ def mostrar_matriz(matriz: list) -> None:
 
 
 def cargar_puntuaciones(matriz_puntos: list) -> bool:
+    """
+    Solicita las puntuaciones por consola y las carga en la matriz.
+
+    Args:
+        matriz_puntos (list): Matriz donde se van a cargar las puntuaciones.
+
+    Returns:
+        bool: Devuelve True si la carga fue exitosa, False si la matriz no es válida.
+    """
     if type(matriz_puntos) == list and len(matriz_puntos) > 0:
         retorno = True
         for fila in range(len(matriz_puntos)):
@@ -73,6 +125,17 @@ def cargar_puntuaciones(matriz_puntos: list) -> bool:
 
 
 def mostrar_puntuacion(array_nombres: list, matriz_puntos: list, indice: int) -> bool:
+    """
+    Muestra por consola el nombre del participante, sus puntuajes individuales y el promedio, la misma es ejecutada por mostrar_puntuaciones().
+
+    Args:
+        array_nombres (list): Lista con los nombres de los participantes.
+        matriz_puntos (list): Matriz con los puntajes otorgados por los jurados.
+        indice (int): Índice del participante a mostrar.
+
+    Returns:
+        bool: Devuelve True si se muestra correctamente la información, False si el índice es inválido.
+    """
     if len(array_nombres) > indice and indice >= 0:
         promedio = calcular_promedio_participante(matriz_puntos, indice)
         print(f"NOMBRE PARTICIPANTE: {array_nombres[indice]}")
@@ -86,6 +149,16 @@ def mostrar_puntuacion(array_nombres: list, matriz_puntos: list, indice: int) ->
 
 
 def calcular_promedio_participante(matriz: list, indice: int) -> float:
+    """
+    Calcula y devuelve el puntaje promedio de un participante.
+
+    Args:
+        matriz (list): Matriz de puntuaciones donde cada fila representa a un participante y cada columna a un jurado.
+        indice (int): Índice del participante del cual se quiere calcular el promedio.
+
+    Returns:
+        float: Promedio de los puntajes del participante.
+    """
     total = 0
     cantidad = len(matriz[indice])
 
@@ -97,6 +170,16 @@ def calcular_promedio_participante(matriz: list, indice: int) -> float:
 
 
 def mostrar_puntuaciones(array_nombres: list, matriz_votos: list) -> bool:
+    """
+    Muestra por consola las puntuaciones de todos los participantes junto con sus promedios.
+
+    Args:
+        array_nombres (list): Lista con los nombres de los participantes.
+        matriz_votos (list): Matriz con los puntajes otorgados por los jurados a cada participante.
+
+    Returns:
+        bool: Devuelve True si se muestran correctamente las puntuaciones, False si los datos son inválidos.
+    """
     if (
         type(array_nombres) == list
         and type(matriz_votos) == list
@@ -114,6 +197,16 @@ def mostrar_puntuaciones(array_nombres: list, matriz_votos: list) -> bool:
 
 
 def promedio_mayor_a_cuatro(array_nombres: list, matriz_puntos: list) -> bool:
+    """
+    Muestra los participantes cuyo promedio de puntuación sea mayor a 4.
+
+    Args:
+        array_nombres (list): Lista con los nombres de los participantes.
+        matriz_puntos (list): Matriz con las puntuaciones otorgadas por los jurados.
+
+    Returns:
+        bool: Devuelve True si al menos un participante tiene promedio mayor a 4, False en caso contrario.
+    """
     mayor_a_cuatro = False
 
     for i in range(len(array_nombres)):
@@ -131,6 +224,16 @@ def promedio_mayor_a_cuatro(array_nombres: list, matriz_puntos: list) -> bool:
 
 
 def promedio_mayor_a_siete(array_nombres: list, matriz_puntos: list) -> bool:
+    """
+    Muestra los participantes cuyo promedio de puntuación sea mayor a 7.
+
+    Args:
+        array_nombres (list): Lista con los nombres de los participantes.
+        matriz_puntos (list): Matriz con las puntuaciones otorgadas por los jurados.
+
+    Returns:
+        bool: Devuelve True si al menos un participante tiene promedio mayor a 7, False en caso contrario.
+    """
     mayor_a_siete = False
 
     for i in range(len(array_nombres)):
@@ -148,6 +251,15 @@ def promedio_mayor_a_siete(array_nombres: list, matriz_puntos: list) -> bool:
 
 
 def mostrar_promedio_jurados(matriz_puntos: list) -> bool:
+    """
+    Muestra por consola el promedio de puntuaciones otorgadas por cada jurado.
+
+    Args:
+        matriz_puntos (list): Matriz que contiene las puntuaciones de cada jurado a cada participante.
+
+    Returns:
+        bool: Devuelve True si se calcularon y mostraron los promedios correctamente, False si la matriz está vacía o no es válida.
+    """
     if type(matriz_puntos) == list and len(matriz_puntos) > 0:
         cantidad_participantes = len(matriz_puntos)
         cantidad_jurados = len(matriz_puntos[0])
@@ -164,6 +276,15 @@ def mostrar_promedio_jurados(matriz_puntos: list) -> bool:
 
 
 def jurado_mas_estricto(matriz_puntos: list) -> bool:
+    """
+    Determina cuál de los tres jurados fue el más estricto.
+
+    Args:
+        matriz_puntos (list): Matriz de puntuaciones, donde cada fila representa a un participante y cada columna representa a un jurado.
+
+    Returns:
+        bool: Devuelve True si se pudo determinar el jurado más estricto, False si la matriz no es válida.
+    """
     if type(matriz_puntos) == list and len(matriz_puntos) > 0:
         suma_jurado_1 = 0
         suma_jurado_2 = 0
@@ -200,6 +321,17 @@ def jurado_mas_estricto(matriz_puntos: list) -> bool:
 def buscar_participante_por_nombre(
     array_nombres: list, matriz_puntos: list, nombre: str
 ) -> bool:
+    """
+    Busca un participante por nombre en una lista y muestra sus puntajes y promedio.
+
+    Args:
+        array_nombres (list): Lista con los nombres de los participantes.
+        matriz_puntos (list): Matriz de puntuaciones, donde cada fila representa a un participante y cada columna representa a un jurado.
+        nombre (str): Nombre del participante a buscar.
+
+    Returns:
+        bool: True si el participante fue encontrado, False en caso contrario.
+    """
     encontrado = False
 
     for i in range(len(array_nombres)):
