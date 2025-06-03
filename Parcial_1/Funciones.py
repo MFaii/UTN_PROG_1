@@ -393,23 +393,34 @@ def ordenar_alfabeticamente(array_nombres: list, matriz_puntos: list) -> bool:
 
         cantidad = len(array_nombres)
 
+        copia_nombres = [0] * cantidad
+        copia_puntos = [0] * cantidad
+
+        for i in range(cantidad):
+            copia_nombres[i] = array_nombres[i]
+            copia_puntos[i] = [
+                matriz_puntos[i][0],
+                matriz_puntos[i][1],
+                matriz_puntos[i][2],
+            ]
+
         for i in range(cantidad - 1):
             for j in range(i + 1, cantidad):
-                if array_nombres[i].lower() > array_nombres[j].lower():
-                    aux_nombre = array_nombres[i]
-                    array_nombres[i] = array_nombres[j]
-                    array_nombres[j] = aux_nombre
+                if copia_nombres[i].lower() > copia_nombres[j].lower():
+                    aux_nombre = copia_nombres[i]
+                    copia_nombres[i] = copia_nombres[j]
+                    copia_nombres[j] = aux_nombre
 
-                    aux_puntos = matriz_puntos[i]
-                    matriz_puntos[i] = matriz_puntos[j]
-                    matriz_puntos[j] = aux_puntos
+                    aux_puntos = copia_puntos[i]
+                    copia_puntos[i] = copia_puntos[j]
+                    copia_puntos[j] = aux_puntos
 
         print("\n--- Datos ordenados ---")
 
         for i in range(cantidad):
-            nombre = array_nombres[i]
-            puntos = matriz_puntos[i]
-            promedio = calcular_promedio_participante(matriz_puntos, i)
+            nombre = copia_nombres[i]
+            puntos = copia_puntos[i]
+            promedio = calcular_promedio_participante(copia_puntos, i)
             print(
                 f"{i + 1}. {nombre} | Puntajes: {puntos[0]}, {puntos[1]}, {puntos[2]} | Promedio: {round(promedio, 2)}"
             )
