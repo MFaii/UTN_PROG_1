@@ -27,3 +27,12 @@ def nombre_valido(nombre: str) -> bool:
 
 def puntuacion_valida(puntaje: int) -> int:
     return puntaje >= 1 and puntaje <= 10
+
+
+def es_entero(valor) -> bool:
+    if valor == "":
+        return False
+    for caracter in valor:
+        if caracter < "0" or caracter > "9":
+            return False
+    return True

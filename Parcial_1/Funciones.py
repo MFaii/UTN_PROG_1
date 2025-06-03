@@ -1,4 +1,5 @@
 from Validaciones import *
+from Inputs import *
 
 
 def crear_matriz(
@@ -48,24 +49,14 @@ def cargar_nombre_participantes(array_nombres: list) -> bool:
     Returns:
         bool: Devuelve True si la carga fue exitosa, False si el array no es válido.
     """
-
     if type(array_nombres) == list and len(array_nombres) > 0:
-        retorno = True
         for i in range(len(array_nombres)):
-            valido = False
-            while not valido:
-                nombre = input(f"Ingrese el nombre del participante {i + 1}: ")
-                if nombre_valido(nombre):
-                    array_nombres[i] = nombre
-                    valido = True
-                else:
-                    print(
-                        "Nombre inválido. Debe tener al menos 3 letras y solo letras y espacios."
-                    )
+            print(f"Ingreso del nombre para el participante {i + 1}:")
+            nombre = pedir_nombre()
+            array_nombres[i] = nombre
+        return True
     else:
-        retorno = False
-
-    return retorno
+        return False
 
 
 def mostrar_array(array: list):
@@ -103,25 +94,15 @@ def cargar_puntuaciones(matriz_puntos: list) -> bool:
         bool: Devuelve True si la carga fue exitosa, False si la matriz no es válida.
     """
     if type(matriz_puntos) == list and len(matriz_puntos) > 0:
-        retorno = True
         for fila in range(len(matriz_puntos)):
             for columna in range(len(matriz_puntos[fila])):
-                valido = False
-                while not valido:
-                    punto = int(
-                        input(
-                            f"Ingrese la cantidad de puntos del jurado {columna +1} para el participante {fila +1}: "
-                        )
-                    )
-                    if puntuacion_valida(punto):
-                        matriz_puntos[fila][columna] = punto
-                        valido = True
-                    else:
-                        print("Puntaje inválido. Debe ser un número entre 1 y 10.")
+                puntaje = pedir_puntaje(
+                    columna + 1, "participante " + str(fila + 1) + ":"
+                )
+                matriz_puntos[fila][columna] = puntaje
+        return True
     else:
-        retorno = False
-
-    return retorno
+        return False
 
 
 def mostrar_puntuacion(array_nombres: list, matriz_puntos: list, indice: int) -> bool:
@@ -277,7 +258,7 @@ def mostrar_promedio_jurados(matriz_puntos: list) -> bool:
 
 def jurado_mas_estricto(matriz_puntos: list) -> bool:
     """
-    Determina cuál de los tres jurados fue el más estricto.
+    Determina cuál de los tres jurados fue el más estricto. -> Cambios, determina cuales fueron los dos mas estrictos
 
     Args:
         matriz_puntos (list): Matriz de puntuaciones, donde cada fila representa a un participante y cada columna representa a un jurado.
@@ -300,18 +281,19 @@ def jurado_mas_estricto(matriz_puntos: list) -> bool:
         promedio_2 = suma_jurado_2 / cantidad
         promedio_3 = suma_jurado_3 / cantidad
 
-        if promedio_1 <= promedio_2 and promedio_1 <= promedio_3:
-            print(
-                f"El jurado más estricto fue el JURADO 1 con un promedio de: {promedio_1}"
-            )
-        elif promedio_2 <= promedio_1 and promedio_2 <= promedio_3:
-            print(
-                f"El jurado más estricto fue el JURADO 2 con un promedio de: {promedio_2}"
-            )
-        else:
-            print(
-                f"El jurado más estricto fue el JURADO 3 con un promedio de: {promedio_3}"
-            )
+        menor_promedio = promedio_1
+        if promedio_2 < menor_promedio:
+            menor_promedio = promedio_2
+        if promedio_3 < menor_promedio:
+            menor_promedio = promedio_3
+
+        print("\nJurado/s más estricto/s:")
+        if promedio_1 == menor_promedio:
+            print(f"JURADO 1 con promedio: {round(promedio_1, 2)}")
+        if promedio_2 == menor_promedio:
+            print(f"JURADO 1 con promedio: {round(promedio_2, 2)}")
+        if promedio_3 == menor_promedio:
+            print(f"JURADO 1 con promedio: {round(promedio_3, 2)}")
 
         return True
     else:
@@ -350,3 +332,47 @@ def buscar_participante_por_nombre(
             break
 
     return encontrado
+
+
+def top_3_participantes(array_nombres: list, matriz_puntos: list) -> bool:
+    """
+    Muestra los 3 participantes con mayor puntaje promedio, ordenandolos con el metodo de bubble sort
+
+    Args:
+        array_nombres (list): Lista con los nombres de los participantes.
+        matriz_puntos (list): Matriz de puntuaciones, donde cada fila representa a un participante y cada columna representa a un jurado.
+
+    Returns:
+        bool: True si se pudo mostrar el top, False si no hay participantes cargados.
+    """
+    cantidad = len(array_nombres)
+
+    if cantidad == 0:
+        print("No hay participantes cargados.")
+        return False
+
+    promedios = [0] * cantidad
+    indices = [0] * cantidad
+
+    for i in range(cantidad):
+        promedios[i] = calcular_promedio_participante(matriz_puntos, i)
+        indices[i] = i
+
+    for i in range(cantidad - 1):
+        for j in range(i + 1, cantidad):
+            if promedios[i] < promedios[j]:
+                aux_promedios = promedios[i]
+                promedios[i] = promedios[j]
+                promedios[j] = aux_promedios
+
+                aux_indices = indices[i]
+                indices[i] = indices[j]
+                indices[j] = aux_indices
+
+    print("\n--- TOP 3 PARTICIPANTES CON MAYOR PROMEDIO ---")
+
+    for i in range(3):
+        idx = indices[i]
+        print(f"{i +1}. {array_nombres[idx]} - PROMEDIO: {round(promedios[i],2)}/10")
+
+    return True
