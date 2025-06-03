@@ -150,26 +150,26 @@ def calcular_promedio_participante(matriz: list, indice: int) -> float:
     return promedio
 
 
-def mostrar_puntuaciones(array_nombres: list, matriz_votos: list) -> bool:
+def mostrar_puntuaciones(array_nombres: list, matriz_puntos: list) -> bool:
     """
     Muestra por consola las puntuaciones de todos los participantes junto con sus promedios.
 
     Args:
         array_nombres (list): Lista con los nombres de los participantes.
-        matriz_votos (list): Matriz con los puntajes otorgados por los jurados a cada participante.
+        matriz_puntos (list): Matriz con los puntajes otorgados por los jurados a cada participante.
 
     Returns:
         bool: Devuelve True si se muestran correctamente las puntuaciones, False si los datos son inválidos.
     """
     if (
         type(array_nombres) == list
-        and type(matriz_votos) == list
+        and type(matriz_puntos) == list
         and len(array_nombres) > 0
-        and len(matriz_votos) > 0
+        and len(matriz_puntos) > 0
     ):
         retorno = True
         for i in range(len(array_nombres)):
-            mostrar_puntuacion(array_nombres, matriz_votos, i)
+            mostrar_puntuacion(array_nombres, matriz_puntos, i)
             print("")
     else:
         retorno = False
@@ -376,3 +376,45 @@ def top_3_participantes(array_nombres: list, matriz_puntos: list) -> bool:
         print(f"{i +1}. {array_nombres[idx]} - PROMEDIO: {round(promedios[i],2)}/10")
 
     return True
+
+
+def ordenar_alfabeticamente(array_nombres: list, matriz_puntos: list) -> bool:
+    """
+    Muestra los participantes ordenados de la A-Z
+
+    Args:
+        array_nombres (list): Lista con los nombres de los participantes.
+        matriz_puntos (list): Matriz de puntuaciones, donde cada fila representa a un participante y cada columna representa a un jurado.
+
+    Returns:
+        bool: True si la operación fue exitosa, False si los datos no son válidos.
+    """
+    if type(array_nombres) == list and type(matriz_puntos) == list:
+
+        cantidad = len(array_nombres)
+
+        for i in range(cantidad - 1):
+            for j in range(i + 1, cantidad):
+                if array_nombres[i].lower() > array_nombres[j].lower():
+                    aux_nombre = array_nombres[i]
+                    array_nombres[i] = array_nombres[j]
+                    array_nombres[j] = aux_nombre
+
+                    aux_puntos = matriz_puntos[i]
+                    matriz_puntos[i] = matriz_puntos[j]
+                    matriz_puntos[j] = aux_puntos
+
+        print("\n--- Datos ordenados ---")
+
+        for i in range(cantidad):
+            nombre = array_nombres[i]
+            puntos = matriz_puntos[i]
+            promedio = calcular_promedio_participante(matriz_puntos, i)
+            print(
+                f"{i + 1}. {nombre} | Puntajes: {puntos[0]}, {puntos[1]}, {puntos[2]} | Promedio: {round(promedio, 2)}"
+            )
+
+        return True
+
+    else:
+        return False

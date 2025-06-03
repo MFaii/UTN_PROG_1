@@ -10,7 +10,7 @@ bandera_carga_puntos = False
 
 while True:
     print(
-        "1.Cargar nombres\n2.Cargar puntos\n3.Mostrar puntos\n4.Participantes con promedio mayor a 4\n5.Participantes con promedio mayor a 7\n6.Promedio de cada jurado\n7.Jurado/s mas estricto/s\n8.Buscar participante por nombre\n9.Top 3 participantes\n11.Salir"
+        "1.Cargar nombres\n2.Cargar puntos\n3.Mostrar puntos\n4.Participantes con promedio mayor a 4\n5.Participantes con promedio mayor a 7\n6.Promedio de cada jurado\n7.Jurado/s mas estricto/s\n8.Buscar participante por nombre\n9.Top 3 participantes\n10.Ordenar A-Z\n11.Salir"
     )
     opcion = pedir_opcion(1, 11)
 
@@ -80,6 +80,12 @@ while True:
             top_3_participantes(array_nombres, matriz_puntos)
         else:
             print("Primero debe cargar los datos")
+
+    elif opcion == 10:
+        if bandera_carga_nombres == True and bandera_carga_puntos == True:
+            ordenar_alfabeticamente(array_nombres, matriz_puntos)
+        else:
+            print("Primero debe cargar los datos.")
 
     elif opcion == 11:
         print("Saliendo")
