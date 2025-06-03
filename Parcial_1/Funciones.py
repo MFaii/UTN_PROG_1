@@ -291,9 +291,9 @@ def jurado_mas_estricto(matriz_puntos: list) -> bool:
         if promedio_1 == menor_promedio:
             print(f"JURADO 1 con promedio: {round(promedio_1, 2)}")
         if promedio_2 == menor_promedio:
-            print(f"JURADO 1 con promedio: {round(promedio_2, 2)}")
+            print(f"JURADO 2 con promedio: {round(promedio_2, 2)}")
         if promedio_3 == menor_promedio:
-            print(f"JURADO 1 con promedio: {round(promedio_3, 2)}")
+            print(f"JURADO 3 con promedio: {round(promedio_3, 2)}")
 
         return True
     else:
